@@ -1,0 +1,33 @@
+<mat-card>
+	<mat-card-title>
+		Departure from {{ item.getOrigin().country }} to {{ item.getDestination().country }} at {{ item.getOrigin().date | date: 'dd/MM/yyyy hh:mm' }}
+		<mat-card-subtitle>
+			<div>
+				Price: {{ item.getPrice() }}
+			</div>
+			<div *ngIf="item.getFlights().length > 1">
+				Number of connections -  {{ item.getFlights().length -1 }}.
+			</div>
+		</mat-card-subtitle>
+	</mat-card-title>
+	<mat-card-content>
+		<table mat-table [dataSource]="item.getFlights()">
+			<ng-container matColumnDef="From">
+				<th mat-header-cell *matHeaderCellDef>From</th>
+				<td mat-cell *matCellDef="let flight">{{ flight.origin.country }} at {{ flight.origin.date | date: 'dd/MM/yyyy hh:mm' }}</td>
+			</ng-container>
+			<ng-container matColumnDef="To">
+				<th mat-header-cell *matHeaderCellDef>To</th>
+				<td mat-cell *matCellDef="let flight">{{ flight.destination.country }} at {{ flight.destination.date | date: 'dd/MM/yyyy hh:mm' }}</td>
+			</ng-container>
+			<ng-container matColumnDef="Price">
+				<th mat-header-cell *matHeaderCellDef>Price, $</th>
+				<td mat-cell *matCellDef="let flight">{{ flight.price }}</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="['From', 'To', 'Price']"></tr>
+			<tr mat-row *matRowDef="let row; columns: ['From', 'To', 'Price'];"></tr>
+		</table>
+	</mat-card-content>
+</mat-card>
+

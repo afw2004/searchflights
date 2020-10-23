@@ -1,0 +1,18 @@
+<div>
+	<mat-card class='sortheader'>
+		<mat-card-content>
+			<table matSort (matSortChange)="sortData($event)">
+				<tr>
+					<th mat-sort-header="Date">Date</th>
+					<th mat-sort-header="Price">Price</th>
+					<th mat-sort-header="Connections">Connections</th>
+					<th mat-sort-header="FlightLength">Flight length</th>
+				</tr>
+			</table>
+		</mat-card-content>
+	</mat-card>
+
+	<app-flightroute *ngFor="let route of sortedRoutes" [item]="route">
+	</app-flightroute>
+</div>
+

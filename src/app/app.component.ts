@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { SearchModel } from '@models/search.model';
+import { SearchFlightsService } from '@services/searchflights/searchflights.service';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'flightsearch';
+  @ViewChild('sidenav') sidenav: MatSidenav;
+
+  title = 'Flight Search';
+
+  constructor(
+    private searchFlightsService: SearchFlightsService
+  ) {}
+
+  onSearch(searchModel: SearchModel): void {
+    this.searchFlightsService.searchFlights(searchModel);
+    this.sidenav.toggle();
+  }
 }

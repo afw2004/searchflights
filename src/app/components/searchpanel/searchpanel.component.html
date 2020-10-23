@@ -1,0 +1,122 @@
+<div>
+	<mat-card>
+		<mat-card-header>
+			<mat-card-title>Basic search options</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<form>
+				<div>
+					<div>
+						<mat-form-field appearance="standard">
+							<mat-label>Departure date</mat-label>
+							<input matInput [matDatepicker]="pickerFrom" [formControl]="formGroup.get('departureDateCtrl')">
+							<mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+							<mat-datepicker #pickerFrom></mat-datepicker>
+						</mat-form-field>
+					</div>
+					<div>
+						<mat-form-field appearance="standard">
+							<mat-label>Max departure date</mat-label>
+							<input matInput [matDatepicker]="pickerTo" [formControl]="formGroup.get('maxDepartureDateCtrl')">
+							<mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+							<mat-datepicker #pickerTo></mat-datepicker>
+						</mat-form-field>
+					</div>
+					<div>
+						<mat-form-field appearance="standard">
+							<mat-label>Departure</mat-label>
+							<input matInput
+								placeoholder="Departure"
+								aria-label="Departure"
+								[matAutocomplete]="departureAutoComplete"
+								[formControl]="formGroup.get('departureCtrl')"
+							/>
+							<mat-autocomplete #departureAutoComplete="matAutocomplete">
+								<mat-option *ngFor="let country of departureFromFilteredOptions | async" [value]="country">
+									<span>{{country}}</span>
+								</mat-option>
+							</mat-autocomplete>
+						</mat-form-field>
+					</div>
+					<div>
+						<mat-form-field appearance="standard">
+							<mat-label>Arrival</mat-label>
+							<input matInput
+								placeoholder="Arrival"
+								aria-label="Arrival"
+								[matAutocomplete]="arrivalAutoComplete"
+								[formControl]="formGroup.get('arrivalCtrl')"
+							/>
+							<mat-autocomplete #arrivalAutoComplete="matAutocomplete">
+								<mat-option *ngFor="let country of arrivalToFilteredOptions | async" [value]="country">
+									<span>{{country}}</span>
+								</mat-option>
+							</mat-autocomplete>
+						</mat-form-field>
+					</div>
+					<div>
+						<mat-form-field appearance="standard">
+							<mat-label>Max price, $</mat-label>
+							<input matInput
+								placeoholder="Max price"
+								aria-label="Max price"
+								type="number"
+								[formControl]="formGroup.get('maxPriceCtrl')"
+							/>
+						</mat-form-field>
+					</div>
+				</div>
+				<div>
+					<mat-checkbox [formControl]="formGroup.get('allowConnectionsCtrl')">Allow connections</mat-checkbox>
+				</div>
+			</form>
+		</mat-card-content>
+	</mat-card>
+
+	<mat-card *ngIf="allowConnectionsOption | async">
+		<mat-card-header>
+			<mat-card-title>Connections options</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<form>
+				<div>
+					<mat-form-field appearance="standard">
+						<mat-label>Max connections</mat-label>
+						<input matInput
+							placeoholder="Max connections"
+							aria-label="Max connections"
+							type="number"
+							[formControl]="formGroup.get('maxConnectionsCtrl')"
+						/>
+					</mat-form-field>
+				</div>
+				<div>
+					<mat-form-field appearance="standard">
+						<mat-label>Min connection gap (minutes)</mat-label>
+						<input matInput
+							placeoholder="Min connection gap (minutes)"
+							aria-label="Min connection gap (minutes)"
+							type="number"
+							[formControl]="formGroup.get('minConnectionGapCtrl')"
+						/>
+					</mat-form-field>
+				</div>
+				<div>
+					<mat-form-field appearance="standard">
+						<mat-label>Max connection gap (minutes)</mat-label>
+						<input matInput
+							placeoholder="Max connection gap (minutes)"
+							aria-label="Max connection gap (minutes)"
+							type="number"
+							[formControl]="formGroup.get('maxConnectionGapCtrl')"
+						/>
+					</mat-form-field>		
+				</div>
+			</form>
+		</mat-card-content>
+	</mat-card>
+
+	<button mat-button color="primary" (click)="onSearchButtonClick()">
+		Search
+	</button>
+</div>

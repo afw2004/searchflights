@@ -1,0 +1,11 @@
+@import "../../../constants.scss";
+
+:host {
+    mat-card {
+        margin: $halfgutter;
+    }
+
+    table {
+        width: 100%;
+    }
+}

@@ -1,0 +1,24 @@
+@import "../constants.scss";
+
+:host {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	
+	background: $app-background;
+
+	.content {
+		flex-grow: 1;
+		overflow: auto;
+	}
+	
+	.logo {
+		width: $logo_width;
+		height: $logo_height;
+		margin: 0 $halfgutter;
+	}
+
+	mat-sidenav-container {
+		flex: 1;
+	}
+}
